@@ -1,0 +1,30 @@
+name: Build and Test iOS Project
+
+on:
+  push:
+    branches:
+      - main
+      - master
+
+jobs:
+  build-and-test:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Xcode
+        uses: actions/setup-xcode@v2
+        with:
+          xcode-version: '13.2' # You can change the Xcode version as needed
+
+      - name: Install dependencies
+        run: |
+          gem install bundler
+          bundle install
+          pod install
+
+      - name: Build and Test
+        run: |
+          xcodebuild clean test -workspace DevOpsPrectical5.xcworkspace -scheme DevOpsPrectical5 -destination 'platform=iOS Simulator,name=iPhone 12' CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
