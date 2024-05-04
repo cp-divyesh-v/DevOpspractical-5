@@ -105,4 +105,8 @@ class TimerViewModel: ObservableObject {
         }
         resetTimer()
     }
+
+    func test() {
+
+    }
 }
